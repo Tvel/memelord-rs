@@ -3,8 +3,8 @@ extern crate imageproc;
 extern crate rusttype;
 extern crate textwrap;
 
-use std::fs::File;
-use std::io::prelude::*;
+//use std::fs::File;
+//use std::io::prelude::*;
 use imageproc::drawing::draw_text_mut;
 use image::{Rgba, open, JPEG, DynamicImage};
 use rusttype::{FontCollection, Scale};
@@ -12,7 +12,8 @@ use textwrap::fill;
 
 pub fn make_panzer(text : &str) -> Vec<u8>
 {
-    let mut image =  image::open("../panzer.png")
+    let panzer = Vec::from(include_bytes!("../DejaVuSans.ttf") as &[u8]);
+    let mut image =  image::load_from_memory(&panzer[..])
         .expect(&format!("Could not load image at {:?}", "panzer.png"));
 
     let warp_text = fill(text, 25);
