@@ -12,7 +12,7 @@ use textwrap::fill;
 
 pub fn make_panzer(text : &str) -> Vec<u8>
 {
-    let panzer = Vec::from(include_bytes!("../DejaVuSans.ttf") as &[u8]);
+    let panzer = Vec::from(include_bytes!("../panzer.png") as &[u8]);
     let mut image =  image::load_from_memory(&panzer[..])
         .expect(&format!("Could not load image at {:?}", "panzer.png"));
 
@@ -27,7 +27,7 @@ pub fn make_panzer(text : &str) -> Vec<u8>
 
 fn draw_white_text(image : &mut DynamicImage, start_x : u32, start_y : u32, text : &str ) -> ()
 {
-    let font = Vec::from(include_bytes!("../panzer.png") as &[u8]);
+    let font = Vec::from(include_bytes!("../DejaVuSans.ttf") as &[u8]);
     let font = FontCollection::from_bytes(font).unwrap().into_font().unwrap();
 
     let height = 20.0;
