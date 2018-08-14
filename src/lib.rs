@@ -30,7 +30,7 @@ fn draw_white_text(image : &mut DynamicImage, start_x : u32, start_y : u32, text
     let font = Vec::from(include_bytes!("../DejaVuSans.ttf") as &[u8]);
     let font = FontCollection::from_bytes(font).unwrap().into_font().unwrap();
 
-    let height = 20.0;
+    let height = 24.0;
     let scale = Scale { x: height * 1.0, y: height };
     let line_space = (height + (height / 4.0)) as u32;
 
