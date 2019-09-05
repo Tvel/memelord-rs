@@ -3,17 +3,22 @@ extern crate imageproc;
 extern crate rusttype;
 extern crate textwrap;
 
-//use std::fs::File;
-//use std::io::prelude::*;
 use imageproc::drawing::draw_text_mut;
 use image::{Rgba, open, JPEG, DynamicImage, GenericImage};
 use rusttype::{FontCollection, Scale};
 use textwrap::fill;
+use std::io::prelude::*;
+use std::fs::File;
 
 pub fn make_cardinal(text : &str) -> Vec<u8>
 {
-    let panzer = Vec::from(include_bytes!("../cardinal.jpg") as &[u8]);
-    let mut image =  image::load_from_memory(&panzer[..])
+    let mut f = File::open("cardinal.jpg").unwrap();
+
+    let mut cardinal = Vec::new();
+    // read the whole file
+    f.read_to_end(&mut cardinal).unwrap();
+
+    let mut image =  image::load_from_memory(&cardinal[..])
         .expect(&format!("Could not load image at {:?}", "cardinal.jpg"));
 
     let warp_text = fill(text, 25);
@@ -27,7 +32,12 @@ pub fn make_cardinal(text : &str) -> Vec<u8>
 
 pub fn make_panzer(text : &str) -> Vec<u8>
 {
-    let panzer = Vec::from(include_bytes!("../panzer.png") as &[u8]);
+    let mut f = File::open("panzer.png").unwrap();
+
+    let mut panzer = Vec::new();
+    // read the whole file
+    f.read_to_end(&mut panzer).unwrap();
+
     let mut image =  image::load_from_memory(&panzer[..])
         .expect(&format!("Could not load image at {:?}", "panzer.png"));
 
