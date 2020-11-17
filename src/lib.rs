@@ -9,10 +9,12 @@ use rusttype::{FontCollection, Scale};
 use textwrap::fill;
 use std::io::prelude::*;
 use std::fs::File;
+use std::path::Path;
 
 pub fn make_cardinal(text : &str) -> Vec<u8>
 {
-    let mut f = File::open("cardinal.jpg").unwrap();
+    let path = Path::new("images").join("cardinal.jpg");
+    let mut f = File::open(path).unwrap();
 
     let mut cardinal = Vec::new();
     // read the whole file
@@ -32,7 +34,8 @@ pub fn make_cardinal(text : &str) -> Vec<u8>
 
 pub fn make_panzer(text : &str) -> Vec<u8>
 {
-    let mut f = File::open("panzer.png").unwrap();
+    let path = Path::new("images").join("panzer.png");
+    let mut f = File::open(path).unwrap();
 
     let mut panzer = Vec::new();
     // read the whole file
