@@ -1,10 +1,10 @@
 [package]
 name = "memelord"
-version = "0.1.2"
+version = "0.2.0"
 authors = ["Tvel <tosilv@gmail.com>"]
 
 [dependencies]
-image = "0.21.2"
-rusttype = "0.7"
-imageproc = "0.18.0"
-textwrap = "0.10"
+image = "0.23.14"
+rusttype = "0.9"
+imageproc = "0.22.0"
+textwrap = "0.13"

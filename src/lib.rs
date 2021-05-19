@@ -4,8 +4,8 @@ extern crate rusttype;
 extern crate textwrap;
 
 use imageproc::drawing::draw_text_mut;
-use image::{Rgba, open, JPEG, DynamicImage, GenericImage};
-use rusttype::{FontCollection, Scale};
+use image::{Rgba, DynamicImage};
+use rusttype::{Font, Scale};
 use textwrap::fill;
 use std::io::prelude::*;
 use std::fs::File;
@@ -55,10 +55,10 @@ pub fn make_panzer(text : &str) -> Vec<u8>
 
 fn draw_white_text(image : &mut DynamicImage, start_x : u32, start_y : u32, line_height : f32, text : &str ) -> ()
 {
-    let font = Vec::from(include_bytes!("../DejaVuSans.ttf") as &[u8]);
-    let font = FontCollection::from_bytes(font).unwrap().into_font().unwrap();
+    let font_data: &[u8] = include_bytes!("../DejaVuSans.ttf");
+    let font: Font<'static> = Font::try_from_bytes(font_data).unwrap();
 
-    let scale = Scale { x: line_height * 1.0, y: line_height };
+    let scale = rusttype::Scale { x: line_height * 1.0, y: line_height };
     let line_space = (line_height + (line_height / 4.0)) as u32;
 
     let mut y = start_y;
@@ -70,8 +70,8 @@ fn draw_white_text(image : &mut DynamicImage, start_x : u32, start_y : u32, line
 
 fn draw_rgb_text(image : &mut DynamicImage, start_x : u32, start_y : u32, line_height : f32, text : &str ) -> ()
 {
-    let font = Vec::from(include_bytes!("../DejaVuSans.ttf") as &[u8]);
-    let font = FontCollection::from_bytes(font).unwrap().into_font().unwrap();
+    let font_data: &[u8] = include_bytes!("../DejaVuSans.ttf");
+    let font: Font<'static> = Font::try_from_bytes(font_data).unwrap();
 
     let scale = Scale { x: line_height * 1.0, y: line_height };
     let line_space = (line_height + (line_height / 4.0)) as u32;
@@ -98,7 +98,7 @@ fn draw_rgb_text(image : &mut DynamicImage, start_x : u32, start_y : u32, line_h
 fn image_to_vec(img : &mut DynamicImage) -> Vec<u8>
 {
     let mut buf = Vec::new();
-    img.write_to(&mut buf, JPEG).unwrap();
+    img.write_to(&mut buf, image::ImageFormat::Jpeg).unwrap();
 
     buf
 }
